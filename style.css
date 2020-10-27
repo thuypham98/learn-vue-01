@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.spaceEl{
+    margin: 30px 0;
+    border-top: 3px dotted #34495e;
+}
+
+.btn{
+    background-color: #3498db;
+    color: #fff;
+    padding: 5px 15px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.active{
+    border: 5px solid #2980b9;
+}
+
+#myApp{
+    padding: 10px;
+}
+
+.slider-wrap{
+    position: relative;
+    width: 500px;
+    height: 350px;
+    margin: 0 auto;
+}
+
+.slider-wrap img{
+    width: 100%;
+    height: 100%;
+}
+
+.slider-wrap a.arrow{
+    position: absolute;
+    background-color: #16a085;
+    color: #fff;
+    text-transform: uppercase;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.slider-wrap a.arrow.left{
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.slider-wrap a.arrow.right{
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}

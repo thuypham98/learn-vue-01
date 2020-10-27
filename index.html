@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS lesson 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="myApp">
+        <div>
+            <h2>{{ content + ' VueJS' }} start</h2>
+            <h2 v-text="content">not working</h2>
+            <h2 v-html='contentHTML'>not working</h2>
+        </div>
+
+        <div class="spaceEl"></div>
+
+        <!-- v-on -->
+        <div @mouseover="positionMouse">
+            <button v-on:click="showPopup">Method v-on:click</button>
+            <input type="button" value="Method v-on:dblclick" @dblclick="changeContent"> <!-- @ <=> v-on -->
+            <p>Tọa độ của chuột: {{ clientX }} / {{ clientY }}</p>
+        </div>
+
+        <div class="spaceEl"></div>
+
+        <div>
+            <button class="btn" @click="number > 0 ? number-- : number = 0">-</button>
+            <span> {{ number }} </span>
+            <button class="btn" @click="add">+</button>
+        </div><br>
+        <div>
+            <p>{{ message }}</p>
+            <button class="btn" v-on:click="reverseMessage">Reverse Message</button>
+        </div>
+
+        <div class="spaceEl"></div>
+
+        <!-- v-show, v-if -->
+        <div>
+            <img src="./images/hourglass.jpg" width="150" v-show="isShow"><br> <!-- working with css-->
+            <img src="./images/kid.jpg" width="150" v-if="!isShow"><br> <!-- working with DOM-->
+            <button class="btn" @click="isShow = !isShow">Show / Hidden</button>
+        </div>
+
+        <div class="spaceEl"></div>
+
+        <!-- v-bind -->
+        <div>
+            <p> Hover your mouse over image for a few seconds to see my dynamically bound title! </p>
+            <img v-bind:src="imgSrc" v-bind:title="imgTitle" :class="isActive ? 'active' : ''" width="150"><br>
+            <img :src="imgSrc" :title="imgTitle" :class="{active:isActive}" width="150"><br>
+            <button class="btn" @click="isActive = !isActive">Active / !Active</button>
+        </div>
+
+        <div class="spaceEl"></div>
+
+        <!-- v-for -->
+        <ul>
+            <li v-for="(item, index) in courseList">{{ index + 1 }}. {{ item }} <button class="btn" @click="removeCourse(index)">Remove</button> </li>
+        </ul>
+        <!-- <p v-for="(item, index) of courseList">{{ index + 1 }}. {{ item }}</p> -->
+
+        <input type="text" placeholder="Course name" v-model="courseName">
+        <!-- <p v-text="courseName"></p> -->
+        <button class="btn" @click="addCourse">Add Course</button>
+
+        <div class="spaceEl"></div>
+
+        <!-- test slider -->
+        <div class="slider-wrap">
+            <img :src="imageList[index]">
+            <a href="javascript:void(0)" class="arrow left" @click="index--" v-if="index != 0">Prev</a>
+            <a href="javascript:void(0)" class="arrow right" @click="index++" v-if="index < imageList.length - 1">Next</a>
+        </div>
+
+
+
+
+
+
+
+        <div class="spaceEl"></div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!--vuejs 2.x -->
+    <script>
+	    // Tạo đối tượng (Vue) để quản lý đối tượng trong DOM 
+        new Vue({
+            el: '#myApp',
+            data: {
+                content: 'Hello World...!',
+                contentHTML: "<a href='https://google.com'>Google</a>",
+                clientX: 0,
+                clientY: 0,
+                number: 1,
+                isShow: true,
+                message: 'qua lại khách chờ sông lặng sóng',
+
+                //v-bind
+                imgSrc: './images/kid.jpg',
+                imgTitle: 'You loaded this page on ' + new Date().toLocaleString(),
+                isActive: false,
+
+                courseName: '',
+                courseList: ['Javascript', 'PHP', 'Ruby'],
+
+                index: 0,
+                imageList: [
+                    './images/girl0.jpg',
+                    './images/girl1.jpg',
+                    './images/girl2.jpg',
+                    './images/girl3.jpg'
+                ]
+
+            },
+            methods: {
+                showPopup: function () {
+                    alert('Method v-on: click');
+                    console.log(this);
+                },
+                changeContent: function () {
+                    this.content += 'Changed content'
+                },
+                positionMouse: function(event) {
+                    this.clientX = event.clientX;
+                    this.clientY = event.clientY;
+                },
+                add: function () {
+                    if (this.number < 10) {
+                        this.number++;
+                    } else {
+                        alert('Lớn rồi, không bấm nữa...');
+                    }
+                },
+                reverseMessage: function () {
+                    this.message = this.message.split(' ').reverse().join(' ')
+                },
+                addCourse: function() {
+                    this.courseList.push(this.courseName);
+                    this.courseName = '';
+                },
+                removeCourse: function(index) {
+                    this.courseList.splice(index, 1);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
